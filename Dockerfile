@@ -1,5 +1,4 @@
 FROM php:5.6.30-alpine
-RUN apk update
 RUN apk add --no-cache RUN apk add --no-cache bash git vim
 RUN docker-php-ext-install pdo_mysql
 
