@@ -1,5 +1,5 @@
 FROM php:5.6.30-alpine
-RUN apk --update libpng libpng-devel --virtual .phpize-deps && apk del .phpize-deps
+RUN apk --update libpng libpng-devel
 RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS linux-headers \
 && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
 && docker-php-ext-install gd \
