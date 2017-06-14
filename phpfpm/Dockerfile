@@ -1,7 +1,7 @@
 FROM php:5.6.30-fpm-alpine
-RUN apk add --no-cache bash git autoconf dpkg-dev dpkg file g++ gcc \
+RUN apk add --no-cache git autoconf dpkg-dev dpkg file g++ gcc \
 libc-dev make pcre-dev pkgconf re2c openssl openssl-dev tcl \
-tcl-dev gnupg coreutils jpeg-dev freetype-dev ffmpeg \
+tcl-dev gnupg coreutils jpeg-dev freetype-dev ffmpeg
 RUN docker-php-ext-install pdo_mysql
 
 #####################################
