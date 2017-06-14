@@ -1,5 +1,5 @@
 FROM php:5.6.30-fpm-alpine
-RUN apk add --no-cache git autoconf dpkg-dev dpkg file g++ gcc \
+RUN apk add --no-cache autoconf dpkg-dev dpkg file g++ gcc \
 libc-dev make pcre-dev pkgconf re2c openssl openssl-dev tcl \
 tcl-dev gnupg coreutils jpeg-dev freetype-dev ffmpeg
 RUN docker-php-ext-install pdo_mysql
@@ -15,5 +15,3 @@ RUN docker-php-ext-configure gd \
         --with-freetype-dir=/usr/include && \
     docker-php-ext-install gd
 
-RUN cd /var/www \
-&& git clone https://github.com/kn007/silk-v3-decoder.git

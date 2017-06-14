@@ -24,5 +24,3 @@ RUN curl -s http://getcomposer.org/installer | php && \
     echo "export PATH=${PATH}:/var/www/vendor/bin" >> ~/.bashrc && \
     mv composer.phar /usr/local/bin/composer
 
-RUN cd /var/www \
-&& git clone https://github.com/kn007/silk-v3-decoder.git
