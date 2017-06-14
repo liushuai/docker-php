@@ -1,5 +1,7 @@
 FROM php:5.6.30-fpm-alpine
-RUN apk add --no-cache bash git vim jpeg-dev freetype-dev
+RUN apk add --no-cache bash git vim autoconf dpkg-dev dpkg file g++ gcc \
+libc-dev make pcre-dev pkgconf re2c openssl openssl-dev tcl \
+tcl-dev gnupg coreutils jpeg-dev freetype-dev ffmpeg
 RUN docker-php-ext-install pdo_mysql
 
 #####################################
@@ -22,3 +24,5 @@ RUN curl -s http://getcomposer.org/installer | php && \
     echo "export PATH=${PATH}:/var/www/vendor/bin" >> ~/.bashrc && \
     mv composer.phar /usr/local/bin/composer
 
+RUN cd /var/www \
+&& git clone https://github.com/kn007/silk-v3-decoder.git
