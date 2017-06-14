@@ -74,17 +74,6 @@ RUN set -xe; \
 	if [ -n "$PHP_MD5" ]; then \
 		echo "$PHP_MD5 *php.tar.xz" | md5sum -c -; \
 	fi; \
-	\
-	if [ -n "$PHP_ASC_URL" ]; then \
-		wget -O php.tar.xz.asc "$PHP_ASC_URL"; \
-		export GNUPGHOME="$(mktemp -d)"; \
-		for key in $GPG_KEYS; do \
-			gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
-		done; \
-		gpg --batch --verify php.tar.xz.asc php.tar.xz; \
-		rm -r "$GNUPGHOME"; \
-	fi; \
-	\
 	apk del .fetch-deps
 
 COPY docker-php-source /usr/local/bin/
