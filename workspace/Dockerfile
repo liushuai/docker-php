@@ -1,7 +1,5 @@
 FROM php:5.6.30-fpm-alpine
-RUN apk add --no-cache bash git vim autoconf dpkg-dev dpkg file g++ gcc \
-libc-dev make pcre-dev pkgconf re2c openssl openssl-dev tcl \
-tcl-dev gnupg coreutils jpeg-dev freetype-dev ffmpeg
+RUN apk add --no-cache bash git vim openssl jpeg-dev freetype-dev
 RUN docker-php-ext-install pdo_mysql
 
 #####################################
@@ -48,4 +46,6 @@ RUN docker-php-ext-configure gd \
 RUN curl -s http://getcomposer.org/installer | php && \
     echo "export PATH=${PATH}:/var/www/vendor/bin" >> ~/.bashrc && \
     mv composer.phar /usr/local/bin/composer
+
+
 
