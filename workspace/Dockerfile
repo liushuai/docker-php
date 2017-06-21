@@ -5,6 +5,31 @@ tcl-dev gnupg coreutils jpeg-dev freetype-dev ffmpeg
 RUN docker-php-ext-install pdo_mysql
 
 #####################################
+# sqlite3 with sqlcipher and other depends:
+#####################################
+RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS linux-headers openssl-dev tcl tcl-dev gnupg coreutils sqlite-dev \
+&& docker-php-source extract
+COPY ./sqlcipher-master.zip /usr/src/
+RUN mkdir /usr/src/sqlcipher \
+&& unzip /usr/src/sqlcipher-master.zip -d /usr/src/sqlcipher \
+&& cd /usr/src/sqlcipher/sqlcipher-master \
+&& ./configure --enable-tempstore=yes CFLAGS="-DSQLITE_HAS_CODEC" LDFLAGS="-lcrypto" \
+&& make \
+&& cd /usr/src/php/ext/sqlite3 \
+&& mv config0.m4 config.m4 2> /dev/null \
+&& phpize \
+&& ./configure --enable-tempstore=yes CFLAGS="-DSQLITE_HAS_CODEC" LDFLAGS="-lcrypto" \
+&& cp /usr/src/sqlcipher/sqlcipher-master/sqlite3.c libsqlite \
+&& sed -i 's|PHP_FE_END|{NULL,NULL,NULL}|' sqlite3.c \
+&& make \
+&& docker-php-ext-install sqlite3 \
+&& rm -rf /usr/src/sqlcipher \
+&& rm -f /usr/src/sqlcipher-master.zip \
+&& docker-php-source delete \
+&& apk del .phpize-deps
+
+
+#####################################
 # gd:
 #####################################
 
