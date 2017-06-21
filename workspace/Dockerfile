@@ -53,7 +53,8 @@ RUN curl -s http://getcomposer.org/installer | php && \
 # silk-v3:
 #####################################
 RUN apk add --no-cache --virtual .silkv3-deps $PHPIZE_DEPS g++ gcc make file
-RUN git clone https://github.com/kn007/silk-v3-decoder.git && \
+RUN cd /var/www/html && \
+git clone https://github.com/kn007/silk-v3-decoder.git && \
 cd silk-v3-decoder/silk && \
 make && make decoder && \
 apk del .silkv3-deps
